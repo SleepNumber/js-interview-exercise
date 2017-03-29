@@ -1,0 +1,7 @@
+html { font-family: 'Open Sans', sans-serif; }
+
+.main-section {
+  margin: 0 auto;
+  max-width: 970px;
+  padding: 20px;
+}
