@@ -27,7 +27,72 @@ function generateTree(employees) {
 
   // YOUR CODE STARTS HERE
 
+
+  //********//
+  //  Plan  //
+  //********//
+  // 1. Make employeeDirectory to facilitate look-up
+  // 2. Convert Person Objects to Tree Nodes
+  // 3. Add Tree nodes to directory
+  // 4. Add employee to manager's directReports
+  // 5. Find managerless employee (CEO)
+
+
+
+  // 1. Make employeeDirectory
+  var employeeDirectory = {};
+
+  // For Future case where lookup, or structuring
+  // by name alone
+  var employeeNameToId = {};
+
+  // 2. Convert Person Objects to Tree Nodes
+  ceo = employees.map(employee => new PersonTreeNode(employee))
+
+  // 3. Add Tree nodes to directory
+  .map(employee => {
+    employeeDirectory[employee.person.id] = employee;
+    employeeNameToId[employee.person.name] = employee;
+    return employee;
+  })
+
+  // 4. Add employee to manager's directReports
+  .map(employee => {
+    if(employee.person.manager){
+      var managerId = employee.person.manager.id;
+      employeeDirectory[managerId].directReports.push(employee);
+    }
+    return employee;
+  })
+  
+  // 5. Find managerless employee (CEO)
+  .reduce((CEO, employee) => employee.person.manager === null ? employee : CEO, null);
+
   // YOUR CODE ENDS HERE
 
   return ceo;
 };
+
+
+
+
+//***************************//
+//   Bi-DirectionalTree      //
+//***************************//
+//  Great if modifying the tests
+//  were allowed :)
+function generateBidirectionalTree (employees){
+  var ceo
+  
+  ceo = employees.map(employee => {
+    employee.directReports = [];
+    return employee;
+  })
+  .map(employee => {
+    employee.manager && employee.manager.directReports.push(employee);
+    return employee;
+  })
+  .reduce((CEO, employee) => employee.manager === null ? employee : CEO, null);
+
+  return ceo
+}
