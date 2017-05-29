@@ -13,7 +13,7 @@ Convert an array of `Person` objects into a tree of `PersonTreeNode` objects.
 
 ### Solving the Problem
 
-* The exercise uses two JavaScript classes: `Pesron` and `PersonTreeNode`
+* The exercise uses two JavaScript classes: `Person` and `PersonTreeNode`
 * The `generateTree` function receives an array of `Person` objects and should return the root `PersonTreeNode` (CEO)
 * Each `PersonTreeNode`'s `directReports` array should contain a `PersonTreeNode` for each direct report of that person
 * The app will use your `generateTree` function to evaluate the test

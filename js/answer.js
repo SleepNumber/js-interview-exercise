@@ -27,6 +27,49 @@ function generateTree(employees) {
 
   // YOUR CODE STARTS HERE
 
+  // Only one CEO, so no need to account for multiple roots.
+  // Iterate through employee array.
+  for (var i of employees) {
+
+    // If employee reports to no one, i.e. the CEO.
+    if (i.manager === null) {
+
+      // Set employee as the root node.
+      ceo = new PersonTreeNode(i);
+    }
+  }
+
+  // Subroutine to find directReports.
+  var findDirectReports = function(boss) {
+
+    // Iterate through employee array.
+    for (var n of employees) {
+
+      // If employee has a manager.
+      if (n.manager) {
+
+        // If that manager matches the boss argument.
+        if (n.manager.id === boss.person.id) {
+
+          // Create new variable to be able to access PersonTreeNode recursively.
+          var x = new PersonTreeNode(n);
+
+          // Push employee into manager's directReports array.
+          boss.directReports.push(x);
+
+          // Recurse to see if employee has directReports.
+          findDirectReports(x);
+        }
+      }
+    }
+
+    // Break recursion if employee has no directReports.
+    return;
+  };
+
+  // Call subroutine starting with CEO.
+  findDirectReports(ceo);
+
   // YOUR CODE ENDS HERE
 
   return ceo;
